@@ -51,14 +51,14 @@ use Traversable;
  * @method static bool nullOrIp($value, $message = '')
  * @method static bool nullOrIpv4($value, $message = '')
  * @method static bool nullOrIpv6($value, $message = '')
- * @method static bool nullOrEq($actual, $expect, $message = '')
- * @method static bool nullOrNotEq($actual, $expect, $message = '')
- * @method static bool nullOrSame($actual, $expect, $message = '')
- * @method static bool nullOrNotSame($actual, $expect, $message = '')
- * @method static bool nullOrGreaterThan($actual, $expect, $message = '')
- * @method static bool nullOrGreaterThanEq($actual, $expect, $message = '')
- * @method static bool nullOrLessThan($actual, $expect, $message = '')
- * @method static bool nullOrLessThanEq($actual, $expect, $message = '')
+ * @method static bool nullOrEq($value, $expect, $message = '')
+ * @method static bool nullOrNotEq($value, $expect, $message = '')
+ * @method static bool nullOrSame($value, $expect, $message = '')
+ * @method static bool nullOrNotSame($value, $expect, $message = '')
+ * @method static bool nullOrGreaterThan($value, $limit, $message = '')
+ * @method static bool nullOrGreaterThanEq($value, $limit, $message = '')
+ * @method static bool nullOrLessThan($value, $limit, $message = '')
+ * @method static bool nullOrLessThanEq($value, $limit, $message = '')
  * @method static bool nullOrRange($value, $min, $max, $message = '')
  * @method static bool nullOrOneOf($value, $values, $message = '')
  * @method static bool nullOrContains($value, $subString, $message = '')
@@ -130,14 +130,14 @@ use Traversable;
  * @method static bool allIp($values, $message = '')
  * @method static bool allIpv4($values, $message = '')
  * @method static bool allIpv6($values, $message = '')
- * @method static bool allEq($values, $value2, $message = '')
- * @method static bool allNotEq($values, $value2, $message = '')
- * @method static bool allSame($values, $value2, $message = '')
- * @method static bool allNotSame($values, $value2, $message = '')
- * @method static bool allGreaterThan($values, $value2, $message = '')
- * @method static bool allGreaterThanEq($values, $value2, $message = '')
- * @method static bool allLessThan($values, $value2, $message = '')
- * @method static bool allLessThanEq($values, $value2, $message = '')
+ * @method static bool allEq($values, $expect, $message = '')
+ * @method static bool allNotEq($values, $expect, $message = '')
+ * @method static bool allSame($values, $expect, $message = '')
+ * @method static bool allNotSame($values, $expect, $message = '')
+ * @method static bool allGreaterThan($values, $limit, $message = '')
+ * @method static bool allGreaterThanEq($values, $limit, $message = '')
+ * @method static bool allLessThan($values, $limit, $message = '')
+ * @method static bool allLessThanEq($values, $limit, $message = '')
  * @method static bool allRange($values, $min, $max, $message = '')
  * @method static bool allOneOf($values, $values, $message = '')
  * @method static bool allContains($values, $subString, $message = '')
@@ -544,12 +544,12 @@ class Assert
         return true;
     }
 
-    public static function eq($actual, $expect, $message = ''): bool
+    public static function eq($value, $expect, $message = ''): bool
     {
-        if ($expect != $actual) {
+        if ($expect != $value) {
             static::reportInvalidArgument(sprintf(
                 $message ?: 'Expected a value equal to %2$s. Got: %s',
-                static::valueToString($actual),
+                static::valueToString($value),
                 static::valueToString($expect)
             ));
             return false;
@@ -557,9 +557,9 @@ class Assert
         return true;
     }
 
-    public static function notEq($actual, $expect, $message = ''): bool
+    public static function notEq($value, $expect, $message = ''): bool
     {
-        if ($expect == $actual) {
+        if ($expect == $value) {
             static::reportInvalidArgument(sprintf(
                 $message ?: 'Expected a different value than %s.',
                 static::valueToString($expect)
@@ -569,12 +569,12 @@ class Assert
         return true;
     }
 
-    public static function same($actual, $expect, $message = ''): bool
+    public static function same($value, $expect, $message = ''): bool
     {
-        if ($expect !== $actual) {
+        if ($expect !== $value) {
             static::reportInvalidArgument(sprintf(
                 $message ?: 'Expected a value identical to %2$s. Got: %s',
-                static::valueToString($actual),
+                static::valueToString($value),
                 static::valueToString($expect)
             ));
             return false;
@@ -582,9 +582,9 @@ class Assert
         return true;
     }
 
-    public static function notSame($actual, $expect, $message = ''): bool
+    public static function notSame($value, $expect, $message = ''): bool
     {
-        if ($expect === $actual) {
+        if ($expect === $value) {
             static::reportInvalidArgument(sprintf(
                 $message ?: 'Expected a value not identical to %s.',
                 static::valueToString($expect)
