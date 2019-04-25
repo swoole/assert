@@ -678,6 +678,17 @@ class Assert
         return true;
     }
 
+    public static function approximate($value, $actual, float $ratio = 0.1): bool
+    {
+        $ret = $actual * (1 - $ratio) < $value && $actual * (1 + $ratio) > $value;
+        if (!$ret) {
+            static::reportInvalidArgument(
+                "Expected a value approximate {$value}, but got {$actual}\n"
+            );
+        }
+        return $ret;
+    }
+
     public static function oneOf($value, array $values, $message = ''): bool
     {
         if (!in_array($value, $values, true)) {
