@@ -193,7 +193,7 @@ class Assert
 
     public static function setThrowException(bool $b)
     {
-        self::$throwException = $b;
+        static::$throwException = $b;
     }
 
     public static function assert($value, $message = ''): bool
@@ -1306,14 +1306,13 @@ class Assert
         }
 
         if (is_array($value)) {
-            return 'array';
+            return 'array(' . count($value) . ')';
         }
 
         if (is_object($value)) {
             if (method_exists($value, '__toString')) {
-                return get_class($value) . ': ' . self::valueToString($value->__toString());
+                return get_class($value) . ': ' . static::valueToString($value->__toString());
             }
-
             return get_class($value);
         }
 
@@ -1322,7 +1321,7 @@ class Assert
         }
 
         if (is_string($value)) {
-            return '"' . $value . '"';
+            return 'string(' . strlen($value) . ') "' . $value . '"';
         }
 
         return (string)$value;
