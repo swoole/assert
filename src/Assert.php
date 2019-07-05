@@ -1367,9 +1367,10 @@ class Assert
             $msg = $e->getMessage();
             $trace = $e->getTraceAsString();
             foreach ($e->getTrace() as $call) {
-                if ($call['file'] !== __FILE__) {
-                    $file = $call['file'];
-                    $line = $call['line'];
+                $file = $call['file'] ?? 'Unknown';
+                $line = $call['line'] ?? 0;
+                if ($file !== __FILE__) {
+                    break;
                 }
             }
             echo "\nAssert failed: " . (empty($msg) ? '' : "{$msg} ") . "in {$file} on line {$line}\nStack trace: \n{$trace}\n";
