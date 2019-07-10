@@ -564,7 +564,7 @@ class Assert
 
     public static function eq($value, $expect, $message = ''): bool
     {
-        if ($expect !== $value) {
+        if ($expect != $value) {
             static::reportInvalidArgument(sprintf(
                 $message ?: 'Expected a value equal to %2$s. Got: %s',
                 static::valueToString($value),
@@ -577,7 +577,7 @@ class Assert
 
     public static function notEq($value, $expect, $message = ''): bool
     {
-        if ($expect === $value) {
+        if ($expect == $value) {
             static::reportInvalidArgument(sprintf(
                 $message ?: 'Expected a different value than %s.',
                 static::valueToString($expect)
