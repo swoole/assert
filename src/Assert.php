@@ -190,6 +190,7 @@ use Traversable;
 class Assert
 {
     protected static $throwException = true;
+    protected static $maxStringLength = 1024;
 
     public static function setThrowException(bool $b)
     {
@@ -1332,7 +1333,11 @@ class Assert
         }
 
         if (is_string($value)) {
-            return 'string(' . strlen($value) . ') "' . $value . '"';
+            $length = strlen($value);
+            if ($length > static::$maxStringLength) {
+                $value = substr($value, 0, static::$maxStringLength) . '...';
+            }
+            return 'string(' . $length . ') "' . $value . '"';
         }
 
         return (string)$value;
